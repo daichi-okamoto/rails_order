@@ -1,2 +1,1 @@
-# order_form
-# rails_order
+ Railsでオーダーフォームを作成していきます。
