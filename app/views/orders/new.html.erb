@@ -1,29 +1,34 @@
 <div class="container mt-3 mb-5">
   <h1 class="text-center mb-5">注文フォーム</h1>
 
-  <%= form_for @order, url: confirm_orders_path do |f| %>
+  <%= form_for @order, url: confirm_orders_path, local: true do |f| %>
     <div class="col-md-6 mx-auto mb-5">
       <div class="mb-3">
-        <%= f.label :name, class: 'form-label border-start border-primary border-4 ps-1' %>
+        <!-- <%= f.label :name, class: 'form-label border-start border-primary border-4 ps-1' %> -->
+        <div>お名前</div>
         <%= f.text_field :name, size: 40, placeholder: 'サンプル' , class: 'form-control' %>
+        <%= render partial: 'shared/error_message', locals: { record: @order, symbol: :name } %>
       </div>
     </div>
     <div class="col-md-6 mx-auto mb-5">
       <div class="mb-3">
         <%= f.label :email, class: 'form-label border-start border-primary border-4 ps-1' %>
         <%= f.text_field :email, size: 100, placeholder: 'sample@example.com' , class: 'form-control' %>
+        <%= render partial: 'shared/error_message', locals: { record: @order, symbol: :email } %>
       </div>
     </div>
     <div class="col-md-6 mx-auto mb-5">
       <div class="mb-3">
         <%= f.label :telephone, class: 'form-label border-start border-primary border-4 ps-1' %>
         <%= f.text_field :telephone, size: 40, placeholder: '0123456789' , class: 'form-control' %>
+        <%= render partial: 'shared/error_message', locals: { record: @order, symbol: :telephone } %>
       </div>
     </div>
     <div class="col-md-6 mx-auto mb-5">
       <div class="mb-3">
         <%= f.label :delivery_address, class: 'form-label border-start border-primary border-4 ps-1' %>
         <%= f.text_field :delivery_address, size: 40, placeholder: 'お届け先住所をご入力してください' , class: 'form-control' %>
+        <%= render partial: 'shared/error_message', locals: { record: @order, symbol: :delivery_address } %>
       </div>
     </div>
 

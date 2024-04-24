@@ -5,6 +5,9 @@ class OrdersController < ApplicationController
 
   def confirm
     @order = Order.new(order_params)
+    if @order.invalid?
+      render :new and return
+    end
   end
   
   def create
@@ -29,11 +32,6 @@ class OrdersController < ApplicationController
   private
   
   def order_params
-    params
-      .require(:order)
-      .permit(:name,
-              :email,
-              :telephone,
-              :delivery_address)
+    params.require(:order).permit(:name, :email, :telephone, :delivery_address)
   end
 end
