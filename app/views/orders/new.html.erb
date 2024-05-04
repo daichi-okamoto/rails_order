@@ -4,8 +4,8 @@
   <%= form_for @order, url: confirm_orders_path, local: true do |f| %>
     <div class="col-md-6 mx-auto mb-5">
       <div class="mb-3">
-        <!-- <%= f.label :name, class: 'form-label border-start border-primary border-4 ps-1' %> -->
-        <div>お名前</div>
+        <%= f.label :name, class: 'form-label border-start border-primary border-4 ps-1' %>
+        <!-- <div>お名前</div> -->
         <%= f.text_field :name, size: 40, placeholder: 'サンプル' , class: 'form-control' %>
         <%= render partial: 'shared/error_message', locals: { record: @order, symbol: :name } %>
       </div>
@@ -35,6 +35,25 @@
       </div>
       
       <div class="mb-3">
+        <%= f.label :order_products, class: 'form-label border-start border-primary border-4 ps-1' %>
+        <%= f.fields_for :order_products do |pf| %>
+          <div class="border border-secondary border-1 rouded p-3 mb-3">
+            <div class="mb-3">
+              <%= pf.label :product_id, t('activerecord.attributes.order_product.product_id') %>
+              <%= pf.select :product_id, Product.selectable_products, { include_blank: true }, class: 'form-select' %>
+              <%= render partial: 'shared/error_message', locals: { record: pf.object, symbol: :product_id } %>
+            </div>
+
+            <div class="mb-3">
+              <%= pf.label :quantity, t('activerecord.attributes.order_product.quantity') %>
+              <%= pf.number_field :quantity,size: 4, placeholder: '数量', class: 'form-control' %>
+              <%= render partial: 'shared/error_message', locals: { record: pf.object, symbol: :quantity } %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      
+      <div class="mb-3">
         <%= f.label :other_comment, class: 'form-label border-start border-primary border-4 ps-1' %>
         <%= f.text_area :other_comment, size:'60x6', placeholder: 'その他、ご要望がありましたらご入力ください。', class: 'form-control' %>
         <%= render partial: 'shared/error_message', locals: { record: @order, symbol: :other_comment } %>
@@ -56,6 +75,16 @@
           </label>
         </div>
         <%= render partial: 'shared/error_message', locals: { record: @order, symbol: :direct_mail_enabled } %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :inflow_source_ids, class: 'form-label border-start border-primary border-4 ps-1' %>
+        <div class="mb-2 ">*このサイトをどこでお知りになりましたか？（複数選択可）</div>
+        <%= f.collection_check_boxes :inflow_source_ids, InflowSource.all, :id, :name do |inflow_source| %>
+          <div class="form-check form-check-inline">
+            <%= inflow_source.label { inflow_source.check_box(class: 'form-check-input') + " #{inflow_source.text}"} %>
+          </div>
+        <% end %>
       </div>
     </div>
 
