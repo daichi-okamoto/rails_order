@@ -43,7 +43,7 @@
               <div class="form-label border-start border-primary border-2 ps-1">
                 <%= t('activerecord.attributes.order_product.product_id') %>
               </div>
-                <%= order_product.product.name %>
+                <%= order_product.name_and_price_text %>
 
               <div class="form-label border-start border-primary border-2 ps-1">
                 <%= t('activerecord.attributes.order_product.quantity') %>
@@ -52,6 +52,7 @@
             </div>
           </div>
         <% end %>
+        <span class="fs-5 fw-bold"><%= number_to_currency(@order.total_price) %>(税込)</span>
     </div>
     <div class="mb-3">
       <div class="form-label border-start border-primary border-4 ps-1">
@@ -95,8 +96,8 @@
     <%= pf.hidden_field :quantity %>
   <% end %>
 
-  <div class="d-grid col-md-6 mx-auto mb-3">
-    <%= f.button 'OK', class: 'btn btn-lg btn-primary' %>
+    <div class="d-grid col-md-6 mx-auto mb-3">
+      <%= f.button 'OK', class: 'btn btn-lg btn-primary' %>
     </div>
     <div class="d-grid col-md-6 mx-auto">
       <%= f.button '戻る', value: 'back', class: 'btn btn-lg btn-secondary' %>
